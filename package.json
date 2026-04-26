@@ -1,0 +1,15 @@
+{
+  "name": "pushover",
+  "version": "0.1.0",
+  "description": "Minimal Pushover notification proof of concept",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check public/client.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2"
+  }
+}

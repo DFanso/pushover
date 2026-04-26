@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pushover POC</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: Inter, system-ui, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(180deg, #121826, #0f172a 60%, #020617);
+        color: #e2e8f0;
+      }
+
+      main {
+        width: min(100%, 720px);
+        padding: 32px;
+        box-sizing: border-box;
+      }
+
+      .card {
+        background: rgba(15, 23, 42, 0.88);
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 20px;
+        padding: 24px;
+        box-shadow: 0 24px 60px rgba(2, 6, 23, 0.45);
+      }
+
+      h1 {
+        margin-top: 0;
+        font-size: clamp(2rem, 5vw, 3rem);
+      }
+
+      p,
+      li,
+      label {
+        color: #cbd5e1;
+        line-height: 1.6;
+      }
+
+      .actions,
+      form {
+        display: grid;
+        gap: 12px;
+      }
+
+      .actions {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        margin: 24px 0;
+      }
+
+      button {
+        border: 0;
+        border-radius: 12px;
+        padding: 14px 16px;
+        background: #38bdf8;
+        color: #082f49;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      button.secondary {
+        background: #1e293b;
+        color: #e2e8f0;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+      }
+
+      input,
+      select {
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.25);
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 12px 14px;
+      }
+
+      code {
+        color: #7dd3fc;
+      }
+
+      #status {
+        min-height: 24px;
+        font-weight: 600;
+        color: #7dd3fc;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="card">
+        <h1>Pushover POC</h1>
+        <p>
+          This proof of concept sends an ecommerce-style notification through the Pushover
+          Message API using your app token and user/group key from <code>.env</code>.
+        </p>
+
+        <form id="sendForm">
+          <label>
+            Title
+            <input id="title" name="title" value="Order update" maxlength="250" />
+          </label>
+          <label>
+            Body
+            <input id="message" name="message" value="Your cart reminder push is working." maxlength="1024" />
+          </label>
+          <label>
+            Click-through URL
+            <input id="url" name="url" value="https://example.com/cart" maxlength="512" />
+          </label>
+          <label>
+            URL title
+            <input id="urlTitle" name="urlTitle" value="Open cart" maxlength="100" />
+          </label>
+          <label>
+            Priority
+            <input id="priority" name="priority" value="0" />
+          </label>
+          <label>
+            Sound
+            <select id="sound" name="sound">
+              <option value="">Account default</option>
+              <option value="pushover">Pushover</option>
+              <option value="cashregister">Cash Register</option>
+              <option value="magic">Magic</option>
+              <option value="alienAlarm">Alien Alarm</option>
+              <option value="orderekakawa">orderekakawa</option>
+              <option value="incoming">Incoming</option>
+              <option value="none">None / silent</option>
+            </select>
+          </label>
+          <button type="submit">Send test Pushover notification</button>
+        </form>
+
+        <p id="status" aria-live="polite"></p>
+
+        <ul>
+          <li>Create a Pushover app token at <code>https://pushover.net/apps/build</code>.</li>
+          <li>Use your dashboard user key, or a group key, as <code>PUSHOVER_USER_KEY</code>.</li>
+          <li>Normal ecommerce events should use priority <code>0</code>; reserve higher priority for urgent cases.</li>
+          <li>If iPhone sound is missing, try an explicit sound like <code>pushover</code> or <code>cashregister</code>.</li>
+        </ul>
+      </section>
+    </main>
+
+    <script src="/client.js" defer></script>
+  </body>
+</html>
